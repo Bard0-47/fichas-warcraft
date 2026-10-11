@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fichas de personaje · Warcraft</title>
+  <meta name="description" content="Generador de fichas de personaje para un juego de rol de mesa ambientado en Warcraft, con reglas inspiradas en Baldur's Gate 3.">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <h1>Ficha de personaje</h1>
+    <p class="subtitulo">Rol de mesa en Azeroth · reglas al estilo Baldur's Gate 3</p>
+    <div class="barra-herramientas" role="toolbar" aria-label="Acciones de la ficha">
+      <button type="button" id="btn-imprimir">Imprimir / PDF</button>
+      <button type="button" id="btn-exportar">Exportar JSON</button>
+      <button type="button" id="btn-importar">Importar JSON</button>
+      <button type="button" id="btn-reiniciar" class="secundario">Nueva ficha</button>
+      <input type="file" id="archivo-importar" accept="application/json,.json" hidden>
+    </div>
+    <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+  </header>
+
+  <main class="pagina">
+    <section class="panel" aria-labelledby="t-personaje">
+      <h2 id="t-personaje">Personaje</h2>
+      <div class="rejilla-datos">
+        <label class="campo campo-ancho">
+          <span>Nombre</span>
+          <input type="text" id="nombre" maxlength="60" autocomplete="off" placeholder="Nombre del personaje">
+        </label>
+        <label class="campo">
+          <span>AC</span>
+          <input type="number" id="ac" min="0" max="99" step="1" inputmode="numeric">
+        </label>
+        <label class="campo">
+          <span>Raza</span>
+          <select id="raza"></select>
+        </label>
+        <label class="campo" id="campo-subraza">
+          <span>Subraza</span>
+          <select id="subraza"></select>
+        </label>
+        <label class="campo">
+          <span>Tipo de magia</span>
+          <select id="magia"></select>
+        </label>
+      </div>
+      <p id="pendientes" class="pendientes" aria-live="polite"></p>
+    </section>
+
+    <div class="columnas">
+      <section class="panel columna-principal" aria-labelledby="t-atributos">
+        <div class="titulo-con-datos">
+          <h2 id="t-atributos">Atributos y habilidades</h2>
+          <div class="contadores">
+            <span id="contador-puntos" class="contador"></span>
+            <span id="contador-habilidades" class="contador"></span>
+          </div>
+        </div>
+        <p id="aviso-eleccion" class="aviso" hidden></p>
+        <table class="tabla-atributos" id="tabla-atributos"></table>
+      </section>
+
+      <aside class="columna-lateral" aria-label="Recursos y rasgos raciales">
+        <section class="panel" aria-labelledby="t-recursos">
+          <h2 id="t-recursos">Recursos</h2>
+          <div id="recursos"></div>
+        </section>
+
+        <section class="panel" id="panel-prof-raciales" aria-labelledby="t-prof-raciales" hidden>
+          <h2 id="t-prof-raciales">Proficiencias raciales</h2>
+          <p class="nota">No cuentan para el límite de proficiencias propias salvo que los datos de la raza indiquen lo contrario.</p>
+          <div id="prof-raciales"></div>
+        </section>
+
+        <section class="panel" id="panel-tarjetas" aria-labelledby="t-tarjetas">
+          <h2 id="t-tarjetas">Habilidades raciales</h2>
+          <div id="tarjetas"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <p>La ficha se guarda sola en este navegador. Exporta el JSON para llevarla a otro dispositivo.</p>
+  </footer>
+
+  <script src="data/razas.js"></script>
+  <script src="js/logica.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

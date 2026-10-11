@@ -1,0 +1,283 @@
+/* Pergamino oscuro, inspirado en Warcraft. Sin dependencias externas. */
+
+:root {
+  --fondo: #17120d;
+  --fondo-2: #211a12;
+  --panel: #2a2118;
+  --panel-2: #33281c;
+  --borde: #6b5230;
+  --borde-suave: #4a3a26;
+  --oro: #d4aa52;
+  --oro-suave: #b8903f;
+  --texto: #ecdfc4;
+  --texto-suave: #b9a98a;
+  --rojo: #b5443a;
+  --verde: #7fae6a;
+  --racial: #78b4d6;
+  --radio: 6px;
+  --fuente-titulos: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --fuente: Georgia, "Times New Roman", serif;
+  --fuente-ui: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #2b2015 0%, var(--fondo) 60%) fixed;
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 0.5rem;
+  text-align: center;
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--oro);
+  text-shadow: 0 2px 0 #000;
+}
+
+.subtitulo { margin: 0.25rem 0 1rem; color: var(--texto-suave); font-style: italic; }
+
+.barra-herramientas { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+
+.mensaje { min-height: 1.4rem; margin: 0.6rem 0 0; font-family: var(--fuente-ui); font-size: 0.9rem; color: var(--verde); }
+.mensaje.error { color: var(--rojo); }
+
+/* ---------- Controles ---------- */
+
+button, input, select { font: inherit; }
+
+button {
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--oro-suave);
+  border-radius: var(--radio);
+  background: linear-gradient(#4a3a22, #382c1a);
+  color: var(--texto);
+  font-family: var(--fuente-ui);
+  font-size: 0.9rem;
+}
+button:hover:not(:disabled) { background: linear-gradient(#5b4829, #44341f); border-color: var(--oro); }
+button.secundario { background: transparent; border-color: var(--borde); color: var(--texto-suave); }
+button:disabled { cursor: not-allowed; opacity: 0.35; }
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--oro);
+  outline-offset: 2px;
+}
+
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: #1b150f;
+  color: var(--texto);
+  font-family: var(--fuente-ui);
+  font-size: 1rem;
+}
+select option:disabled { color: #7d6f57; }
+
+input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--oro);
+  cursor: pointer;
+  flex: none;
+}
+input[type="checkbox"]:disabled { cursor: not-allowed; }
+
+/* ---------- Estructura ---------- */
+
+.pagina { max-width: 1200px; margin: 0 auto; padding: 0.5rem 1rem 1.5rem; display: grid; gap: 1rem; }
+
+.panel {
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 220, 150, 0.04);
+}
+
+.panel h2 {
+  margin: 0 0 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--borde-suave);
+  font-family: var(--fuente-titulos);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  color: var(--oro);
+}
+
+.columnas { display: grid; gap: 1rem; align-items: start; }
+.columna-lateral { display: grid; gap: 1rem; }
+
+@media (min-width: 900px) {
+  .columnas { grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr); }
+}
+
+.rejilla-datos { display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.campo { display: grid; gap: 0.25rem; align-content: start; }
+.campo > span { font-family: var(--fuente-ui); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-suave); }
+@media (min-width: 700px) { .campo-ancho { grid-column: span 2; } }
+
+.pendientes { margin: 0.9rem 0 0; font-family: var(--fuente-ui); font-size: 0.85rem; color: var(--texto-suave); }
+.pendientes strong { color: var(--oro); }
+.pendientes span + span::before { content: " · "; color: var(--borde); }
+.pendientes.completa { color: var(--verde); }
+
+.titulo-con-datos { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: baseline; justify-content: space-between; margin-bottom: 0.8rem; border-bottom: 1px solid var(--borde-suave); }
+.titulo-con-datos h2 { margin: 0; border: 0; padding-bottom: 0.4rem; }
+.contadores { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; padding-bottom: 0.4rem; font-family: var(--fuente-ui); font-size: 0.9rem; color: var(--texto-suave); }
+.contador strong { color: var(--oro); font-size: 1.05rem; }
+
+.aviso { margin: 0 0 0.8rem; padding: 0.5rem 0.7rem; border-left: 3px solid var(--verde); border-radius: 0 var(--radio) var(--radio) 0; background: rgba(127, 174, 106, 0.1); font-family: var(--fuente-ui); font-size: 0.88rem; }
+.aviso.pendiente { border-left-color: var(--oro); background: rgba(212, 170, 82, 0.12); }
+
+.nota { margin: 0.5rem 0 0; font-family: var(--fuente-ui); font-size: 0.82rem; color: var(--texto-suave); font-style: italic; }
+
+/* ---------- Tabla de atributos ---------- */
+
+.tabla-atributos { width: 100%; border-collapse: collapse; font-family: var(--fuente-ui); }
+
+.tabla-atributos thead th {
+  padding: 0 0.5rem 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+.tabla-atributos thead th:first-child { text-align: left; }
+.tabla-atributos td, .tabla-atributos tbody th { text-align: center; }
+
+.grupo-atributo { border-top: 1px solid var(--borde-suave); }
+
+.fila-atributo th { text-align: left; padding: 0.6rem 0.5rem 0.3rem; font-family: var(--fuente-titulos); font-size: 1.05rem; font-weight: 700; color: var(--texto); }
+.fila-atributo td { padding: 0.6rem 0.5rem 0.3rem; }
+
+.control-base { display: inline-flex; align-items: center; gap: 0.4rem; }
+.control-base button { width: 2rem; height: 2rem; padding: 0; line-height: 1; font-size: 1.1rem; }
+.valor-base { min-width: 1.8rem; font-size: 1.1rem; font-weight: 700; }
+
+.celda-racial { color: var(--texto-suave); }
+.celda-racial.positivo { color: var(--verde); font-weight: 700; }
+.celda-racial.negativo { color: var(--rojo); font-weight: 700; }
+.celda-total { font-size: 1.2rem; font-weight: 700; }
+.celda-mod { font-size: 1.2rem; font-weight: 700; color: var(--oro); }
+
+.fila-habilidades td { padding: 0 0.5rem 0.7rem; text-align: left; }
+
+.lista-habilidades { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.1rem 1rem; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+
+.habilidad {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.habilidad:hover { background: rgba(255, 220, 150, 0.06); }
+.habilidad.marcada { background: rgba(212, 170, 82, 0.1); }
+.habilidad.racial { background: rgba(120, 180, 214, 0.12); cursor: default; }
+.habilidad:has(input:disabled:not(:checked)) { color: var(--texto-suave); opacity: 0.6; cursor: not-allowed; }
+.nombre-habilidad { flex: 1; }
+.bono-habilidad { min-width: 2rem; text-align: right; font-weight: 700; color: var(--oro); }
+.etiqueta-racial { padding: 0 0.35rem; border: 1px solid var(--racial); border-radius: 3px; font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--racial); }
+
+/* ---------- Recursos ---------- */
+
+.recurso { margin-bottom: 0.9rem; padding: 0.7rem 0.8rem; border: 1px solid var(--borde-suave); border-radius: var(--radio); background: rgba(0, 0, 0, 0.2); }
+.recurso:last-child { margin-bottom: 0; }
+.recurso-cabecera { display: flex; align-items: baseline; justify-content: space-between; }
+.recurso-nombre { font-family: var(--fuente-titulos); font-size: 1.05rem; }
+.recurso-valor { font-family: var(--fuente-ui); font-size: 1.8rem; color: var(--oro); }
+.recurso-mana .recurso-valor { color: #7fb0e6; }
+.desglose { margin: 0.2rem 0 0; font-family: var(--fuente-ui); font-size: 0.88rem; color: var(--texto-suave); }
+
+.prof-racial { display: grid; gap: 0.25rem; margin-bottom: 0.7rem; font-family: var(--fuente-ui); }
+.prof-origen { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-suave); }
+.prof-fija { padding: 0.4rem 0.6rem; border: 1px solid var(--racial); border-radius: var(--radio); background: rgba(120, 180, 214, 0.1); }
+
+/* ---------- Tarjetas raciales ---------- */
+
+.grupo-tarjetas + .grupo-tarjetas { margin-top: 1rem; }
+.grupo-tarjetas h3 { margin: 0 0 0.5rem; font-family: var(--fuente-titulos); font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--oro-suave); }
+
+.tarjeta {
+  margin-bottom: 0.6rem;
+  padding: 0.6rem 0.8rem 0.7rem;
+  border: 1px solid var(--borde);
+  border-left: 3px solid var(--oro);
+  border-radius: var(--radio);
+  background: linear-gradient(135deg, rgba(212, 170, 82, 0.08), rgba(0, 0, 0, 0.18));
+}
+.tarjeta h4 { margin: 0 0 0.2rem; font-family: var(--fuente-titulos); font-size: 1rem; color: var(--texto); }
+.tarjeta p { margin: 0; font-size: 0.92rem; color: var(--texto-suave); }
+
+.pie { max-width: 1200px; margin: 0 auto; padding: 0 1rem 2rem; text-align: center; font-family: var(--fuente-ui); font-size: 0.8rem; color: var(--texto-suave); }
+
+/* ---------- Móvil: cada atributo en bloque ---------- */
+
+@media (max-width: 640px) {
+  .panel { padding: 0.8rem; }
+  .tabla-atributos thead { display: none; }
+  .tabla-atributos, .tabla-atributos tbody, .tabla-atributos tr { display: block; }
+
+  .fila-atributo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem 0.8rem; padding: 0.6rem 0 0.3rem; }
+  .fila-atributo th { grid-column: 1 / -1; padding: 0; }
+  .fila-atributo td { display: flex; align-items: center; justify-content: space-between; padding: 0.2rem 0.4rem; text-align: right; }
+  .fila-atributo td::before { content: attr(data-label); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-suave); }
+  .fila-habilidades td { display: block; padding: 0 0 0.6rem; }
+  .lista-habilidades { grid-template-columns: 1fr; }
+  .habilidad { padding: 0.45rem 0.4rem; }
+  .control-base button { width: 2.4rem; height: 2.4rem; }
+}
+
+/* ---------- Impresión ---------- */
+
+@media print {
+  @page { margin: 12mm; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .barra-herramientas, .mensaje, .pie, .pendientes, .aviso, .control-base button, .nota { display: none !important; }
+  .cabecera { padding: 0 0 0.4rem; }
+  .cabecera h1 { color: #000; text-shadow: none; font-size: 20pt; }
+  .subtitulo { color: #444; margin-bottom: 0.4rem; }
+  .pagina { max-width: none; padding: 0; gap: 0.6rem; }
+  .panel { background: #fff; box-shadow: none; border: 1px solid #777; break-inside: avoid; padding: 0.5rem 0.7rem; }
+  .panel h2, .titulo-con-datos h2, .grupo-tarjetas h3 { color: #000; border-color: #999; }
+  .columnas { grid-template-columns: 1.7fr 1fr; gap: 0.6rem; }
+  .campo > span, .contadores, .desglose, .tarjeta p, .prof-origen, .celda-racial, .tabla-atributos thead th { color: #333; }
+  input[type="text"], input[type="number"], select { background: #fff; color: #000; border: 1px solid #999; appearance: none; -webkit-appearance: none; padding: 0.2rem 0.4rem; }
+  .celda-total, .celda-mod, .bono-habilidad, .recurso-valor, .recurso-mana .recurso-valor, .contador strong { color: #000; }
+  .celda-racial.positivo, .celda-racial.negativo { color: #000; }
+  .recurso { background: #fff; border-color: #999; }
+  .tarjeta { background: #fff; border-color: #999; border-left-color: #000; break-inside: avoid; }
+  .tarjeta h4 { color: #000; }
+  .habilidad.marcada, .habilidad.racial, .prof-fija { background: #eee; }
+  .etiqueta-racial { color: #000; border-color: #000; }
+  .grupo-atributo { border-color: #999; break-inside: avoid; }
+  .fila-atributo th { color: #000; }
+  .lista-habilidades { grid-template-columns: repeat(2, 1fr); }
+  .habilidad:has(input:disabled:not(:checked)) { opacity: 1; }
+}
