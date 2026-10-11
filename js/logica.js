@@ -37,7 +37,6 @@
     IDS_ATRIBUTO.forEach((id) => { base[id] = CONSTANTES.valorMinimo; });
     return {
       nombre: '',
-      ac: null,
       raza: '',
       subraza: '',
       magia: 'ninguna',
@@ -74,6 +73,7 @@
     return {
       raza,
       sub,
+      acBase: sub && sub.acBase !== undefined ? sub.acBase : raza.acBase !== undefined ? raza.acBase : CONSTANTES.acBase,
       tieneSubrazas,
       subrazaPendiente: tieneSubrazas && !sub,
       bonos,
@@ -103,8 +103,7 @@
     const e = estado;
 
     e.nombre = typeof e.nombre === 'string' ? e.nombre.slice(0, 60) : '';
-    const ac = Number(e.ac);
-    e.ac = e.ac === null || e.ac === '' || !Number.isFinite(ac) ? null : Math.max(0, Math.min(99, Math.round(ac)));
+    delete e.ac; // el AC ya no se escribe a mano: se calcula
 
     if (!RAZAS[e.raza]) e.raza = '';
     if (!e.raza || !subrazasDe(RAZAS[e.raza])[e.subraza]) e.subraza = '';
@@ -238,6 +237,15 @@
       };
     });
 
+    /* AC (sin armadura) */
+    const acBase = desc ? desc.acBase : CONSTANTES.acBase;
+    const modDes = atributos.des.modificador;
+    const ac = {
+      base: acBase,
+      total: acBase + modDes,
+      texto: desglose({ valor: acBase }, [{ valor: modDes, etiqueta: 'Des' }], acBase + modDes)
+    };
+
     /* Vida */
     let vida = null;
     if (desc) {
@@ -306,6 +314,7 @@
       proficienciasRaciales,
       habilidades,
       contador: { usadas, maximo: CONSTANTES.maxProficiencias },
+      ac,
       vida,
       mana,
       tarjetas,

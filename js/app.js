@@ -54,9 +54,6 @@
   function pintarCampos(c) {
     const nombre = $('nombre');
     if (nombre.value !== estado.nombre) nombre.value = estado.nombre;
-    const ac = $('ac');
-    const valorAc = estado.ac === null ? '' : String(estado.ac);
-    if (ac.value !== valorAc) ac.value = valorAc;
 
     $('raza').value = estado.raza;
     $('magia').value = estado.magia;
@@ -151,7 +148,11 @@
 
   function pintarRecursos(c) {
     const d = c.descripcion;
-    let html = '<div class="recurso"><div class="recurso-cabecera"><span class="recurso-nombre">Vida</span>' +
+    let html = '<div class="recurso"><div class="recurso-cabecera"><span class="recurso-nombre">AC</span>' +
+      '<strong class="recurso-valor">' + c.ac.total + '</strong></div>' +
+      '<p class="desglose">' + esc(c.ac.texto) + '</p></div>';
+
+    html += '<div class="recurso"><div class="recurso-cabecera"><span class="recurso-nombre">Vida</span>' +
       '<strong class="recurso-valor">' + (c.vida ? c.vida.total : '—') + '</strong></div>' +
       '<p class="desglose">' + (c.vida ? esc(c.vida.texto) : 'Elige una raza para calcularla.') + '</p></div>';
 
@@ -252,16 +253,6 @@
 
   $('nombre').addEventListener('input', (ev) => {
     estado.nombre = ev.target.value;
-    guardar();
-  });
-
-  $('ac').addEventListener('input', (ev) => {
-    estado.ac = ev.target.value === '' ? null : Number(ev.target.value);
-    guardar();
-  });
-  $('ac').addEventListener('change', (ev) => {
-    F.normalizar(estado);
-    ev.target.value = estado.ac === null ? '' : String(estado.ac);
     guardar();
   });
 

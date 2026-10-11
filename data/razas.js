@@ -14,6 +14,7 @@ globalThis.DATOS = {
     costeAcumulado: { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 },
     bonoProficiencia: 2,
     maxProficiencias: 4,
+    acBase: 10, // AC sin armadura = acBase + modificador de Destreza (la raza/subraza puede definir su propio acBase)
     vidaMinima: 1,
     manaMinimo: 0,
     costeTrucos: '1-2',
@@ -61,6 +62,7 @@ globalThis.DATOS = {
    * ---------- Razas ----------
    * Campos de una raza (o subraza; la subraza se suma a la raza):
    *   nombre, vidaBase, manaBase     La subraza prevalece sobre la raza si lo define.
+   *   acBase                         AC base sin armadura (por defecto CONSTANTES.acBase).
    *   bonoMana                       Bonificación racial de maná (se suma, por defecto 0).
    *   bonos                          Bonificaciones fijas de atributo, p. ej. { con: 2 }.
    *   eleccionesAtributo             { cantidad, obligatorio, bono, excluir[] }
@@ -91,6 +93,7 @@ globalThis.DATOS = {
     enano: {
       nombre: 'Enano',
       vidaBase: 12,
+      acBase: 12, // Armadura natural
       bonos: { con: 2 },
       habilidades: [
         { nombre: 'Armadura natural', texto: 'Tu piel es resistente como el cuero. Cuando no llevas armadura, tu AC es 12 + tu bonificador de Destreza. Funciona con escudos o armas defensivas.' }
