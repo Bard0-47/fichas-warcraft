@@ -22,7 +22,9 @@ globalThis.DATOS = {
     tiposMagia: {
       ninguna: { nombre: 'Ninguna', atributo: null },
       mago: { nombre: 'Mago', atributo: 'int' },
-      hechicero: { nombre: 'Hechicero', atributo: 'car' }
+      druida: { nombre: 'Druida / Sacerdote', atributo: 'sab' },
+      hechicero: { nombre: 'Hechicero', atributo: 'car' },
+      brujo: { nombre: 'Brujo', atributo: 'car' }
     }
   },
 
@@ -53,7 +55,7 @@ globalThis.DATOS = {
     { id: 'percepcion', nombre: 'Percepción', atributo: 'sab' },
     { id: 'supervivencia', nombre: 'Supervivencia', atributo: 'sab' },
     { id: 'enganio', nombre: 'Engaño', atributo: 'car' },
-    { id: 'intimidacion', nombre: 'Intimidación', atributo: 'car' },
+    { id: 'intimidacion', nombre: 'Intimidación', atributo: 'con' },
     { id: 'interpretacion', nombre: 'Interpretación', atributo: 'car' },
     { id: 'persuasion', nombre: 'Persuasión', atributo: 'car' }
   ],
