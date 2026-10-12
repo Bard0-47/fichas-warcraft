@@ -23,8 +23,7 @@ globalThis.DATOS = {
       ninguna: { nombre: 'Ninguna', atributo: null },
       mago: { nombre: 'Mago', atributo: 'int' },
       druida: { nombre: 'Druida / Sacerdote', atributo: 'sab' },
-      hechicero: { nombre: 'Hechicero', atributo: 'car' },
-      brujo: { nombre: 'Brujo', atributo: 'car' }
+      hechicero: { nombre: 'Hechicero / Brujo', atributo: 'car' }
     }
   },
 
